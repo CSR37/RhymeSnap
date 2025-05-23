@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useRef, type ChangeEvent } from 'react';
@@ -20,15 +21,11 @@ import { generatePoem } from '@/ai/flows/generate-poem';
 
 const LANGUAGES = [
   { value: "English", label: "English" },
-  { value: "Spanish", label: "Español" },
-  { value: "French", label: "Français" },
-  { value: "German", label: "Deutsch" },
-  { value: "Japanese", label: "日本語" },
-  { value: "Chinese", label: "中文" },
   { value: "Hindi", label: "हिन्दी" },
-  { value: "Portuguese", label: "Português" },
-  { value: "Russian", label: "Русский" },
-  { value: "Italian", label: "Italiano" },
+  { value: "Bengali", label: "বাংলা" },
+  { value: "Marathi", label: "मराठी" },
+  { value: "Telugu", label: "తెలుగు" },
+  { value: "Tamil", label: "தமிழ்" },
 ];
 
 export default function RhymeSnapPage() {
