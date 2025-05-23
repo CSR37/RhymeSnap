@@ -16,6 +16,7 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Loader2, UploadCloud, Camera, Languages, Wand2, ImageOff, FileImage } from 'lucide-react';
+import { useToast } from "@/hooks/use-toast"; // Added for camera permission toast
 
 import { generatePoem } from '@/ai/flows/generate-poem';
 
@@ -35,6 +36,7 @@ export default function RhymeSnapPage() {
   const [poem, setPoem] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const { toast } = useToast(); // Init toast
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
@@ -46,6 +48,12 @@ export default function RhymeSnapPage() {
         setError('Please select an image file.');
         setSelectedImageBase64(null);
         setImageFileName(null);
+        // Show toast for invalid file type
+        toast({
+          variant: "destructive",
+          title: "Invalid File Type",
+          description: "Please select an image file (e.g., JPG, PNG, GIF).",
+        });
         return;
       }
       setError(null);
@@ -64,11 +72,44 @@ export default function RhymeSnapPage() {
   };
 
   const triggerFileInput = () => fileInputRef.current?.click();
-  const triggerCameraInput = () => cameraInputRef.current?.click();
+  
+  const triggerCameraInput = async () => {
+    // Check for camera permissions before triggering input
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      try {
+        // Attempt to get media stream to prompt for permission if not already granted
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        // If successful, can proceed to trigger camera. Stop tracks to release camera.
+        stream.getTracks().forEach(track => track.stop());
+        cameraInputRef.current?.click();
+      } catch (err) {
+        console.error("Camera access denied:", err);
+        setError("Camera access was denied. Please enable camera permissions in your browser settings.");
+        toast({
+          variant: "destructive",
+          title: "Camera Access Denied",
+          description: "Please enable camera permissions in your browser settings to use this feature.",
+        });
+      }
+    } else {
+       setError("Camera not available on this device or browser.");
+       toast({
+          variant: "destructive",
+          title: "Camera Not Available",
+          description: "Your browser or device does not support camera access.",
+        });
+    }
+  };
+
 
   const handleSubmit = async () => {
     if (!selectedImageBase64) {
       setError('Please select an image first.');
+      toast({
+          variant: "destructive",
+          title: "No Image Selected",
+          description: "Please select or capture an image before generating a poem.",
+        });
       return;
     }
 
@@ -85,10 +126,21 @@ export default function RhymeSnapPage() {
         setPoem(result.poem);
       } else {
         setError('The AI could not generate a poem. Please try again.');
+        toast({
+          variant: "destructive",
+          title: "Poem Generation Failed",
+          description: "The AI could not generate a poem for this image. Please try a different image or try again later.",
+        });
       }
     } catch (e: any) {
       console.error(e);
-      setError(e.message || 'An unexpected error occurred while generating the poem.');
+      const errorMessage = e.message || 'An unexpected error occurred while generating the poem.';
+      setError(errorMessage);
+      toast({
+          variant: "destructive",
+          title: "Error Generating Poem",
+          description: errorMessage,
+        });
     } finally {
       setIsLoading(false);
     }
@@ -102,7 +154,7 @@ export default function RhymeSnapPage() {
           <p className="text-muted-foreground mt-2 text-lg">Turn your photos into poetry!</p>
         </header>
 
-        <Card className="shadow-lg">
+        <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-2xl">
               <FileImage className="h-7 w-7 text-primary" /> Image Selection
@@ -121,7 +173,7 @@ export default function RhymeSnapPage() {
             <input
               type="file"
               accept="image/*"
-              capture="environment"
+              capture="environment" // Use 'user' for front camera, 'environment' for back
               ref={cameraInputRef}
               onChange={handleImageFileChange}
               className="hidden"
@@ -151,7 +203,7 @@ export default function RhymeSnapPage() {
           </CardContent>
         </Card>
 
-        <Card className="shadow-lg">
+        <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-2xl">
               <Languages className="h-7 w-7 text-primary" /> Select Language
@@ -187,7 +239,7 @@ export default function RhymeSnapPage() {
           {isLoading ? 'Generating Your Masterpiece...' : 'Generate Poem'}
         </Button>
 
-        {error && (
+        {error && !isLoading && ( // Only show main error alert if not loading, to avoid duplicate messages with toasts
           <Alert variant="destructive" className="shadow-md">
             <AlertTitle className="font-semibold">Oops! Something went wrong.</AlertTitle>
             <AlertDescription>{error}</AlertDescription>
@@ -195,7 +247,7 @@ export default function RhymeSnapPage() {
         )}
 
         {poem && selectedImageBase64 && (
-          <Card className="shadow-lg">
+          <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
             <CardHeader>
               <CardTitle className="text-2xl text-center">Your RhymeSnap!</CardTitle>
             </CardHeader>

@@ -4,99 +4,99 @@
 
 @layer base {
   :root {
-    --background: 220 26% 94%; /* Nord Snow Storm - Almost White e.g., #ECEFF4 */
-    --foreground: 222 30% 25%; /* Nord Polar Night - Dark Blue/Gray for text e.g., #2E3440 */
+    --background: 35 45% 95%; /* Soft Parchment e.g., #F5F2EF */
+    --foreground: 35 25% 25%; /* Dark Sepia Brown e.g., #4F4A45 */
 
     --card: 0 0% 100%; /* White */
-    --card-foreground: 222 30% 25%; /* Dark Blue/Gray for text */
+    --card-foreground: 35 25% 25%; /* Dark Sepia Brown */
 
     --popover: 0 0% 100%; /* White */
-    --popover-foreground: 222 30% 25%; /* Dark Blue/Gray for text */
+    --popover-foreground: 35 25% 25%; /* Dark Sepia Brown */
 
-    --primary: 210 65% 60%; /* Nord Frost - Bright Blue e.g., #5E81AC */
+    --primary: 210 35% 45%; /* Muted Denim Blue e.g., #52697D */
     --primary-foreground: 0 0% 100%; /* White */
 
-    --secondary: 220 30% 85%; /* Nord Snow Storm - Light Gray-Blue e.g., #D8DEE9 */
-    --secondary-foreground: 222 30% 30%; /* Nord Polar Night - Darker Blue/Gray e.g., #3B4252 */
+    --secondary: 35 30% 90%; /* Light Beige e.g., #ECEAE6 */
+    --secondary-foreground: 35 20% 35%; /* Medium Sepia Brown e.g., #6B655F */
 
-    --muted: 220 25% 90%; /* Nord Snow Storm - Very Light Gray e.g., #E5E9F0 */
-    --muted-foreground: 222 20% 45%; /* Nord Polar Night - Medium Gray-Blue e.g., #4C566A */
+    --muted: 35 30% 92%; /* Very Light Beige e.g., #EFEDE9 */
+    --muted-foreground: 35 15% 50%; /* Soft Gray Brown e.g., #8C8681 */
 
-    --accent: 160 50% 55%; /* Nord Aurora - Greenish/Teal e.g., #88C0D0 */
-    --accent-foreground: 222 30% 20%; /* Nord Polar Night - Darker for contrast e.g., #2E3440 */
+    --accent: 30 60% 60%; /* Muted Gold e.g., #D1B078 */
+    --accent-foreground: 30 30% 20%; /* Dark Brown for contrast on Gold e.g., #4D4230 */
 
-    --destructive: 0 72% 51%;  /* Nord Aurora - Red e.g., #BF616A */
+    --destructive: 0 50% 50%;  /* Muted Crimson e.g., #B26666 */
     --destructive-foreground: 0 0% 100%; /* White */
 
-    --border: 220 20% 80%; /* Nord Snow Storm - Light Gray Border e.g., #D8DEE9 */
-    --input: 220 20% 80%; /* Nord Snow Storm - Light Gray Input Border */
-    --ring: 210 65% 60%; /* Nord Frost - Bright Blue for focus */
+    --border: 35 20% 80%; /* Soft Beige Border e.g., #D9D5D1 */
+    --input: 35 20% 80%; /* Soft Beige Input Border */
+    --ring: 210 35% 45%; /* Muted Denim Blue for focus */
 
     --radius: 0.75rem; /* Existing border radius */
 
-    --chart-1: 210 65% 60%; /* Nord Frost Blue */
-    --chart-2: 160 50% 55%; /* Nord Aurora Teal */
-    --chart-3: 0 72% 51%;   /* Nord Aurora Red */
-    --chart-4: 45 70% 60%;  /* Nord Aurora Yellow */
-    --chart-5: 270 60% 70%; /* Nord Aurora Purple */
+    --chart-1: 210 35% 45%; /* Muted Denim Blue */
+    --chart-2: 30 60% 60%;  /* Muted Gold */
+    --chart-3: 0 50% 50%;   /* Muted Crimson */
+    --chart-4: 45 50% 55%;  /* Muted Ochre */
+    --chart-5: 270 30% 60%; /* Muted Plum */
 
-    /* Sidebar specific colors - Light Theme */
-    --sidebar-background: 220 26% 96%; /* Nord Snow Storm variant e.g., #ECEFF4 slightly toned */
-    --sidebar-foreground: 222 30% 25%; /* Nord Polar Night e.g., #2E3440 */
-    --sidebar-primary: 210 65% 55%;    /* Nord Frost Blue, slightly darker for emphasis */
+    /* Sidebar specific colors - Classic Light Theme */
+    --sidebar-background: 35 45% 97%; /* Slightly Lighter Parchment e.g., #F7F5F3 */
+    --sidebar-foreground: 35 25% 20%; /* Slightly Darker Sepia Brown e.g., #45413C */
+    --sidebar-primary: 210 35% 40%;    /* Slightly Darker Muted Denim e.g., #4A5F73 */
     --sidebar-primary-foreground: 0 0% 100%; /* White */
-    --sidebar-accent: 220 30% 90%;     /* Nord Snow Storm - Lighter accent e.g., #E5E9F0 */
-    --sidebar-accent-foreground: 222 30% 30%; /* Nord Polar Night e.g., #3B4252 */
-    --sidebar-border: 220 20% 85%;     /* Nord Snow Storm - Light Gray Border e.g., #D8DEE9 */
-    --sidebar-ring: 210 65% 60%;       /* Nord Frost - Bright Blue */
+    --sidebar-accent: 35 30% 92%;     /* Lighter Beige for sidebar accent e.g., #EFEDE9 */
+    --sidebar-accent-foreground: 35 20% 30%; /* Darker Sepia Brown for text on accent e.g., #5C5752 */
+    --sidebar-border: 35 20% 85%;     /* Softer Beige Border e.g., #E0DCD7 */
+    --sidebar-ring: 210 35% 45%;       /* Muted Denim Blue */
   }
 
   .dark {
-    --background: 222 30% 15%; /* Nord Polar Night - Darkest Blue/Gray e.g., #2E3440 */
-    --foreground: 220 20% 85%; /* Nord Snow Storm - Light Gray for text e.g., #D8DEE9 */
+    --background: 35 15% 15%; /* Very Dark Sepia e.g., #2E2A26 */
+    --foreground: 35 30% 85%; /* Light Parchment Text e.g., #E0DCD7 */
 
-    --card: 222 30% 20%; /* Nord Polar Night - Darker Blue/Gray e.g., #3B4252 */
-    --card-foreground: 220 20% 85%; /* Nord Snow Storm - Light Gray for text */
+    --card: 35 15% 20%; /* Dark Sepia Card e.g., #3B3632 */
+    --card-foreground: 35 30% 85%; /* Light Parchment Text */
 
-    --popover: 222 30% 20%; /* Nord Polar Night - Darker Blue/Gray */
-    --popover-foreground: 220 20% 85%; /* Nord Snow Storm - Light Gray for text */
+    --popover: 35 15% 20%; /* Dark Sepia Popover */
+    --popover-foreground: 35 30% 85%; /* Light Parchment Text */
 
-    --primary: 210 70% 70%; /* Nord Frost - Lighter Blue for dark mode e.g., #81A1C1 */
-    --primary-foreground: 222 30% 10%; /* Nord Polar Night - Very Dark for contrast */
+    --primary: 210 45% 65%; /* Lighter Muted Denim e.g., #7C96B0 */
+    --primary-foreground: 35 15% 10%; /* Very Dark Sepia for contrast e.g., #24211E */
 
-    --secondary: 222 25% 25%; /* Nord Polar Night - Medium Dark Blue/Gray e.g., #434C5E */
-    --secondary-foreground: 220 20% 80%; /* Nord Snow Storm - Lighter Gray e.g., #E5E9F0 */
+    --secondary: 35 15% 25%; /* Medium Dark Sepia e.g., #4F4A45 */
+    --secondary-foreground: 35 30% 80%; /* Lighter Parchment e.g., #D7D2CD */
 
-    --muted: 222 20% 30%; /* Nord Polar Night - Muted Dark e.g., #4C566A */
-    --muted-foreground: 220 15% 65%; /* Nord Snow Storm - Medium Gray e.g., #A3ABB2 */
+    --muted: 35 10% 30%; /* Darker Muted Sepia e.g., #57524E */
+    --muted-foreground: 35 20% 65%; /* Soft Parchment e.g., #B5AFA9 */
 
-    --accent: 160 55% 65%; /* Nord Aurora - Brighter Teal/Green for dark e.g., #8FBCBB */
-    --accent-foreground: 222 30% 10%; /* Nord Polar Night - Very Dark for contrast */
+    --accent: 30 50% 70%; /* Brighter Muted Gold e.g., #E6C790 */
+    --accent-foreground: 30 25% 15%; /* Darker Brown for contrast on Gold e.g., #382F20 */
 
-    --destructive: 0 70% 60%; /* Nord Aurora - Brighter Red e.g., #D08770 */
+    --destructive: 0 50% 60%; /* Lighter Muted Crimson e.g., #C97F7F */
     --destructive-foreground: 0 0% 100%; /* White */
 
-    --border: 222 20% 30%; /* Nord Polar Night - Muted Dark Border e.g., #4C566A */
-    --input: 222 20% 30%; /* Nord Polar Night - Muted Dark Input Border */
-    --ring: 210 70% 70%; /* Nord Frost - Lighter Blue for focus */
+    --border: 35 10% 35%; /* Dark Sepia Border e.g., #645F5A */
+    --input: 35 10% 35%; /* Dark Sepia Input Border */
+    --ring: 210 45% 65%; /* Lighter Muted Denim for focus */
 
     /* --radius will inherit from :root */
 
-    --chart-1: 210 70% 70%; /* Nord Frost Light Blue */
-    --chart-2: 160 55% 65%; /* Nord Aurora Light Teal */
-    --chart-3: 0 70% 60%;   /* Nord Aurora Light Red */
-    --chart-4: 45 75% 70%;  /* Nord Aurora Light Yellow */
-    --chart-5: 270 65% 75%; /* Nord Aurora Light Purple */
+    --chart-1: 210 45% 65%; /* Lighter Muted Denim */
+    --chart-2: 30 50% 70%;  /* Brighter Muted Gold */
+    --chart-3: 0 50% 60%;   /* Lighter Muted Crimson */
+    --chart-4: 45 55% 65%;  /* Brighter Muted Ochre */
+    --chart-5: 270 35% 70%; /* Brighter Muted Plum */
     
-    /* Sidebar specific colors - Dark Theme */
-    --sidebar-background: 222 30% 12%; /* Nord Polar Night - Even Darker than main bg */
-    --sidebar-foreground: 220 20% 88%; /* Nord Snow Storm - Lighter Gray for text */
-    --sidebar-primary: 210 70% 65%;    /* Nord Frost - Lighter Blue for dark */
-    --sidebar-primary-foreground: 222 30% 8%; /* Nord Polar Night - Very Dark */
-    --sidebar-accent: 222 25% 22%;     /* Nord Polar Night - Darker Accent */
-    --sidebar-accent-foreground: 220 20% 80%; /* Nord Snow Storm - Lighter Gray */
-    --sidebar-border: 222 20% 25%;     /* Nord Polar Night - Dark Border */
-    --sidebar-ring: 210 70% 70%;       /* Nord Frost - Lighter Blue */
+    /* Sidebar specific colors - Classic Dark Theme */
+    --sidebar-background: 35 15% 12%; /* Even Darker Sepia e.g., #262320 */
+    --sidebar-foreground: 35 30% 88%; /* Slightly Lighter Parchment Text e.g., #E3E0DC */
+    --sidebar-primary: 210 45% 60%;    /* Slightly Darker Lighter Muted Denim e.g., #728CA6 */
+    --sidebar-primary-foreground: 35 15% 8%; /* Very Dark Sepia e.g., #1F1C1A */
+    --sidebar-accent: 35 15% 22%;     /* Darker Sepia for sidebar accent e.g., #403B37 */
+    --sidebar-accent-foreground: 35 30% 80%; /* Lighter Parchment e.g., #D7D2CD */
+    --sidebar-border: 35 10% 25%;     /* Darker Sepia Border e.g., #4A4541 */
+    --sidebar-ring: 210 45% 70%;       /* Lighter Muted Denim for focus */
   }
 }
 
