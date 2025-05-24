@@ -1,8 +1,9 @@
 
 'use client';
 
-import { useState, useRef, type ChangeEvent } from 'react';
+import { useState, useRef, type ChangeEvent, useEffect } from 'react';
 import NextImage from 'next/image';
+import Link from 'next/link'; // Added for Privacy Policy link
 import { Button } from '@/components/ui/button';
 import {
   Select,
@@ -16,7 +17,7 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Loader2, UploadCloud, Camera, Languages, Wand2, ImageOff, FileImage } from 'lucide-react';
-import { useToast } from "@/hooks/use-toast"; // Added for camera permission toast
+import { useToast } from "@/hooks/use-toast";
 
 import { generatePoem } from '@/ai/flows/generate-poem';
 
@@ -36,10 +37,18 @@ export default function RhymeSnapPage() {
   const [poem, setPoem] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const { toast } = useToast(); // Init toast
+  const { toast } = useToast();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
+  
+  // State for current year to avoid hydration mismatch for the footer
+  const [currentYear, setCurrentYear] = useState<number | null>(null);
+
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear());
+  }, []);
+
 
   const handleImageFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -48,7 +57,6 @@ export default function RhymeSnapPage() {
         setError('Please select an image file.');
         setSelectedImageBase64(null);
         setImageFileName(null);
-        // Show toast for invalid file type
         toast({
           variant: "destructive",
           title: "Invalid File Type",
@@ -65,7 +73,6 @@ export default function RhymeSnapPage() {
       };
       reader.readAsDataURL(file);
     }
-    // Clear the input value to allow selecting the same file again
     if (event.target) {
       event.target.value = '';
     }
@@ -74,12 +81,9 @@ export default function RhymeSnapPage() {
   const triggerFileInput = () => fileInputRef.current?.click();
   
   const triggerCameraInput = async () => {
-    // Check for camera permissions before triggering input
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       try {
-        // Attempt to get media stream to prompt for permission if not already granted
         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        // If successful, can proceed to trigger camera. Stop tracks to release camera.
         stream.getTracks().forEach(track => track.stop());
         cameraInputRef.current?.click();
       } catch (err) {
@@ -125,7 +129,8 @@ export default function RhymeSnapPage() {
       if (result.poem) {
         setPoem(result.poem);
       } else {
-        setError('The AI could not generate a poem. Please try again.');
+        const defaultError = 'The AI could not generate a poem. Please try again.';
+        setError(defaultError);
         toast({
           variant: "destructive",
           title: "Poem Generation Failed",
@@ -173,7 +178,7 @@ export default function RhymeSnapPage() {
             <input
               type="file"
               accept="image/*"
-              capture="environment" // Use 'user' for front camera, 'environment' for back
+              capture="environment"
               ref={cameraInputRef}
               onChange={handleImageFileChange}
               className="hidden"
@@ -190,7 +195,7 @@ export default function RhymeSnapPage() {
             {selectedImageBase64 ? (
               <div className="mt-4 border border-dashed border-muted-foreground/50 rounded-lg p-4 text-center">
                 <div className="relative w-full max-w-md mx-auto aspect-[4/3] rounded-md overflow-hidden shadow-md">
-                  <NextImage src={selectedImageBase64} alt="Selected preview" layout="fill" objectFit="contain" data-ai-hint="user uploaded" />
+                  <NextImage src={selectedImageBase64} alt="Selected preview" fill style={{objectFit: 'contain'}} data-ai-hint="user uploaded" />
                 </div>
                 {imageFileName && <p className="text-sm text-muted-foreground mt-2">Selected: {imageFileName}</p>}
               </div>
@@ -239,7 +244,7 @@ export default function RhymeSnapPage() {
           {isLoading ? 'Generating Your Masterpiece...' : 'Generate Poem'}
         </Button>
 
-        {error && !isLoading && ( // Only show main error alert if not loading, to avoid duplicate messages with toasts
+        {error && !isLoading && (
           <Alert variant="destructive" className="shadow-md">
             <AlertTitle className="font-semibold">Oops! Something went wrong.</AlertTitle>
             <AlertDescription>{error}</AlertDescription>
@@ -256,8 +261,8 @@ export default function RhymeSnapPage() {
                 <NextImage 
                   src={selectedImageBase64} 
                   alt="Content for poem" 
-                  layout="fill" 
-                  objectFit="contain" 
+                  fill 
+                  style={{objectFit: 'contain'}}
                   data-ai-hint="poetry inspiration" 
                 />
               </div>
@@ -270,8 +275,15 @@ export default function RhymeSnapPage() {
             </CardContent>
           </Card>
         )}
-         <footer className="text-center text-sm text-muted-foreground py-8">
-            <p>&copy; {new Date().getFullYear()} RhymeSnap. Create poetry from pixels.</p>
+         <footer className="text-center text-sm text-muted-foreground py-8 space-y-2">
+            {currentYear !== null ? (
+              <p>&copy; {currentYear} RhymeSnap. Create poetry from pixels.</p>
+            ) : (
+              <p>&copy; RhymeSnap. Create poetry from pixels.</p> 
+            )}
+            <Link href="/privacy-policy" className="hover:text-accent hover:underline">
+              Privacy Policy
+            </Link>
         </footer>
       </div>
     </main>
